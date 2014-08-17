@@ -10,6 +10,7 @@ $(document).ready(function(){
 		}*/
 		function diffString2(o,n){
 			var out = diff(o,n);
+			console.log(out);
 			var str = "";
 			if(out.n.length == 0){
 				for (var i = 0; i < out.o.length; i++){
@@ -29,13 +30,17 @@ $(document).ready(function(){
 					else {
 						var pre = "";
 						for (n = out.n[i].row + 1; n < out.o.length && out.o[n].text == null; n++){
+					      if(out.n[i].freq == null)
 							pre += '<del>' + out.o[n] + "</del>";
+						  else 
+						    break;
 						}
 						str += out.n[i].text + pre;
 					}
 				}
 			} 
-			// return str;
+			console.log(str);
+			return str;
 		}
 		function diffString(revision){
 			for(var k=0; k<revision.length-1; k++){
@@ -60,7 +65,6 @@ $(document).ready(function(){
 		function diff( o, n ) {
 			var ns = new Object();
 			var os = new Object();
-			console.log(o);
 			for ( var i = 0; i < n.length; i++ ) {
 				if ( ns[ n[i] ] == null )
 					ns[ n[i] ] = { rows: new Array(), o: null };
@@ -73,8 +77,8 @@ $(document).ready(function(){
 			}
 			for ( var i in ns ) {
 				if ( ns[i].rows.length == 1 && typeof(os[i]) != "undefined" && os[i].rows.length == 1 ) {
-					n[ ns[i].rows[0] ] = { text: n[ ns[i].rows[0] ], row: os[i].rows[0] };
-					o[ os[i].rows[0] ] = { text: o[ os[i].rows[0] ], row: ns[i].rows[0] };
+					n[ ns[i].rows[0] ] = { text: n[ ns[i].rows[0] ], row: os[i].rows[0], freq:1};
+					o[ os[i].rows[0] ] = { text: o[ os[i].rows[0] ], row: ns[i].rows[0], freq:1 };
 				}
 			}
 			for ( var i = 0; i < n.length - 1; i++ ) {

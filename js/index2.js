@@ -4,7 +4,7 @@ $(document).ready(function(){
 		diffString(revision);
 	});
 	function diffString(revision){
-		for(var k=0; k<revision.length-1; k++){
+		for(var k=0; k<1; k++){
 			var obj_n = revision[k+1].content;
 			for(var key in obj_n){
 				num_n =	obj_n[key];
@@ -23,7 +23,7 @@ $(document).ready(function(){
 					}
 					console.log(num_n.num);
 					console.log(date);
-					console.log(str);
+					//		console.log(str);
 					continue;
 				}
 				else {
@@ -70,13 +70,15 @@ $(document).ready(function(){
 						}
 						else{
 							for(var j =i; j < out[0].length; j++){
-								if(j==i)
-									str += '<del>';
-								str += out[0][j];
-								if(j==out[0].length-1){
-									str += "</del>";
-									i=j;
-									break;
+								if(out[0][j].text == null){
+									if(j==i)
+										str += '<del>';
+									str += out[0][j];
+									if(j==out[0].length-1){
+										str += "</del>";
+										i=j;
+										break;
+									}
 								}
 							}
 						}
@@ -120,6 +122,7 @@ $(document).ready(function(){
 						}
 						else{
 							for(var j =i; j < out[1].length; j++){
+							  if(out[1][j].text == null){
 								if(j==i)
 									str += '<ins>';
 								str += out[1][j];
@@ -128,6 +131,7 @@ $(document).ready(function(){
 									i=j;
 									break;
 								}
+							}
 							}
 						}
 					} 
@@ -155,6 +159,19 @@ $(document).ready(function(){
 			}
 			else 
 				n[i] = n[i];
+		}
+		for (var i = 0; i < o.length-1; i++){
+			for(var j = 0; j < n.length-1; j++){
+				if(o[i] == n[j] && o[i+1] == n[j+1] && n[j].text == null && o[i].text == null){
+					console.log(i,j);
+					o[i] = { text: o[i] , rows: i};
+					n[j] = { text: n[j] , rows: j};
+				}
+				else{
+					o[i] = o[i];
+					n[j] = n[j];
+				}
+			}
 		}
 		console.log(o);
 		console.log(n);
