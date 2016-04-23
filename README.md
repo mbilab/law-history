@@ -1,10 +1,4 @@
-law-history
-===========
-# Goal #
+# law-history
 
-This program is going to find the difference of the laws in Taiwan, and visualize
-as a grpah so it will be convenient to be read.
+This project is going to find the difference of Taiwan's laws, and visualize as a grpah so it will be convenient to be read (ref: [The Making of a Law](http://visualisiert.net/parteiengesetz/index.en.html)). 
 
-## Status #
-
-Now we can find the difference of the laws.
